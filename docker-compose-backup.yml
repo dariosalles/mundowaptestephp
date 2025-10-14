@@ -1,0 +1,39 @@
+
+services:
+  db:
+    container_name: mundowap-test-cakephp-db
+    image: mysql:8.0.34
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: mundowap_test_cakephp
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+    - "3307:3306"
+    networks:
+    - backend
+    volumes:
+    - mysql-db:/var/lib/mysql
+    command: --bind-address=0.0.0.0
+  app:
+    image: fmgusmao/php8-nginx
+#    user: 1000:1000
+    container_name: mundowap-test-cakephp-app
+    ports:
+      - "13001:80"
+    volumes:
+      - ./app:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      - .env.app
+    depends_on:
+      - db
+    networks:
+      - backend
+volumes:
+  mysql-db:
+networks:
+  backend:
+    driver: bridge
