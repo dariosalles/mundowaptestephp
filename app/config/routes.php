@@ -86,35 +86,24 @@ return static function (RouteBuilder $routes) {
         // Rotas REST automáticas (gera index, view, add, edit, delete)
         $builder->resources('Visits');
         $builder->resources('Workdays');
+        $builder->resources('Addresses');
 
-        // // Rotas customizadas (opcionais)
-        // $builder->connect('/visits/:id', [
-        //     'controller' => 'Visits',
-        //     'action' => 'view',
-        //     '_method' => 'GET'
-        // ])
-        // ->setPass(['id'])
-        // ->setPatterns(['id' => '\d+']);
-
-        // $builder->connect('/workdays', [
-        //     'controller' => 'Workdays',
-        //     'action' => 'index',
-        //     '_method' => 'GET'
-        // ]);
-
-        // $builder->connect('/workdays/:id', [
-        //     'controller' => 'Workdays',
-        //     'action' => 'view',
-        //     '_method' => 'GET'
-        // ])
-        // ->setPass(['id'])
-        // ->setPatterns(['id' => '\d+']);
+        // Rotas customizadas (opcionais)
+        $builder->connect(
+            '/visits/by-date',
+            ['controller' => 'Visits', 'action' => 'byDate', '_method' => 'POST']
+        );
 
         $builder->connect('/csrf', [
             'controller' => 'App',
             'action' => 'csrf',
             '_method' => 'GET'
         ]);
+
+        $builder->connect(
+            '/visits/reallocate-pending',
+            ['controller' => 'Visits', 'action' => 'reallocatePending', '_method' => 'POST']
+        );
 
         // fallback padrão do Cake
         $builder->fallbacks(DashedRoute::class);

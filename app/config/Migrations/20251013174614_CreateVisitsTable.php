@@ -31,10 +31,10 @@ class CreateVisitsTable extends AbstractMigration
         ]);
         // ALTERADO DO ORIGINAL db_structure.sql
         // ADICIONADO STATUS
-        $table->addColumn('status', 'integer', [
-            'default' => null,
-            'null' => false,
-        ]);
+        // $table->addColumn('status', 'integer', [
+        //     'default' => null,
+        //     'null' => false,
+        // ]);
         $table->addColumn('forms', 'integer', [
             'default' => null,
             'limit' => null,
@@ -44,17 +44,6 @@ class CreateVisitsTable extends AbstractMigration
             'default' => null,
             'limit' => null,
             'null' => false,
-        ]);
-        // ALTERADO DO ORIGINAL db_structure.sql
-        // ADICIONADO ADDRESS - CHAVE ESTRANGEIRA TABELA ADDRESSES
-        $table->addColumn('address_id', 'integer', [
-            'default' => null,
-            'limit' => null,
-            'null' => false,
-        ])
-        ->addForeignKey('address_id', 'addresses', 'id', [
-            'update' => 'CASCADE', // se o id em addresses mudar, ele será atualizado automaticamente aqui
-            'delete' => 'RESTRICT', // impede a exclusão de um endereço ainda em uso (pode usar 'CASCADE' se quiser excluir em cadeia)
         ]);
         $table->addColumn('completed', 'integer', [
             'default' => 0,

@@ -6,16 +6,22 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Visit Entity
+ * Address Entity
  *
  * @property int $id
- * @property \Cake\I18n\FrozenDate $date
- * @property int $completed
- * @property int $forms
- * @property int $products
- * @property int $duration
+ * @property string $foreign_table
+ * @property int $foreign_id
+ * @property string $postal_code
+ * @property string $state
+ * @property string $city
+ * @property string $sublocality
+ * @property string $street
+ * @property string $street_number
+ * @property string|null $complement
+ *
+ * @property \App\Model\Entity\Visit[] $visits
  */
-class Visit extends Entity
+class Address extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -27,17 +33,15 @@ class Visit extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'date' => true,
-        'completed' => true,
-        'forms' => true,
-        'products' => true,
-        'duration' => true,
-        'status' => true,
-        'completed' => true,
+        'foreign_table' => true,
+        'foreign_id' => true,
         'postal_code' => true,
+        'state' => true,
+        'city' => true,
         'sublocality' => true,
         'street' => true,
         'street_number' => true,
-        'complement' => true
+        'complement' => true,
+        'visits' => false,
     ];
 }
